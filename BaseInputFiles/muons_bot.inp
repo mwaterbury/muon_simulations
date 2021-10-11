@@ -1,0 +1,264 @@
+TITLE
+Bottom part of beam missing the first scintillator
+* Define the beam characteristics
+BEAM          -1000.                           43.        4.          MUON-
+* Define the beam position
+BEAMPOS          0.0     -19.5      -20.
+GEOBEGIN                                                              COMBNAME
+    0    0          
+* Black body
+SPH bodyBH     0.0 0.0 0.0 100000.
+* Void sphere
+SPH bodyVA     0.0 0.0 0.0 10000.
+RPP bodyEM     -12.5 12.5 -15. 15. 10.2 116.2
+XYP planeRo    -10.
+RPP bodFlr     -1000. 1000. -1000. -30.5 -10. 1000.
+RPP bodyAl1    -19.3 19.3 -20.5 18.1 1.2 118.2
+RPP bodyAl2    -13.5 13.5 -15. 17.5 3.2 116.2
+RPP bodyFL     -9. -6. -30.5 -20.5 10.2 13.2
+RPP bodyBL     -9. -6. -30.5 -20.5 78. 109.2
+RPP bodyFR     6. 9. -30.5 -20.5 10.2 13.2
+RPP bodyBR     6. 9. -30.5 -20.5 106.2 109.2
+RPP bodyPb     -15. 15. -20. 20. 135. 145.
+RPP bodyPb1    -15. 15. -15. 15. 560. 562.
+RPP bodyPb2    -15. 15. -15. 15. 565. 567.
+RPP bodyPb3    -15. 15. -15. 15. 570. 572.
+RPP bodyS1     -15. 15. -17.5 17.5 -4. -2.
+RPP bodyS2     -15. 15. -17.5 17.5 -2. 0.0
+$start_transform s34trans
+RPP bodyS3     -15. 15. -15. 15. 130. 132.
+RPP bodyS4     -15. 15. -15. 15. 132. 134.
+$end_transform 
+$start_transform s56trans
+RPP bodyS5     -15. 15. -15. 15. 146. 148.
+RPP bodyS6     -15. 15. -15. 15. 148. 150.
+$end_transform 
+RPP bodyS7     -20. 20. -20. 20. 304. 306.
+RPP bodyS8     -15. 15. -15. 15. 562.5 564.5
+RPP bodyS9     -15. 15. -15. 15. 567.5 569.5
+RCC bodyM1     0.0 0.0 152.5 0.0 0.0 150. 21.5
+RCC bodyM2     0.0 0.0 152.5 0.0 0.0 150. 10.
+RCC bodyM3     0.0 0.0 322.5 0.0 0.0 100. 21.5
+RCC bodyM4     0.0 0.0 322.5 0.0 0.0 100. 10.
+RCC bodyM5     0.0 0.0 442.5 0.0 0.0 100. 21.5
+RCC bodyM6     0.0 0.0 442.5 0.0 0.0 100. 10.
+RPP bodyCal    -12.15 12.15 -12.15 12.15 574.5 587.5
+END
+* Black hole
+regBH        5 +bodyBH -bodyVA
+* External Vacuum
+regVA        5 +bodyVA -bodyAl1 -bodyPb -bodyS1 -bodyS2
+               -bodyS3 -bodyS4 -bodyS5 -bodyS6 -bodyS7
+               -bodyS8 -bodyS9 -bodyM1 -bodyM3 -bodyM5
+               -bodyPb1 -bodyPb2 -bodyPb3 -bodyCal -planeRo
+               -bodFlr
+regRo        5 +planeRo -bodFlr
+regFl        5 +bodFlr
+* Vacuum in Cavity
+regVA1       5 +bodyAl2 -bodyEM
+* Vacuum in Magnets
+regVA2       5 +bodyM2
+regVA3       5 +bodyM4
+regVA4       5 +bodyM6
+* Target
+regEM        5 +bodyEM
+* Al Cage
+regAl        5 +bodyAl1 -bodyAl2
+* Aluminum Feet
+regFFR       5 +bodyFR
+regFFL       5 +bodyFL
+regFBL       5 +bodyBL
+regFBR       5 +bodyBR
+* Pb Shielding
+regPb        5 +bodyPb
+regPb1       5 +bodyPb1
+regPb2       5 +bodyPb2
+regPb3       5 +bodyPb3
+* Scintillators
+regS1        5 +bodyS1
+regS2        5 +bodyS2
+regS3        5 +bodyS3
+regS4        5 +bodyS4
+regS5        5 +bodyS5
+regS6        5 +bodyS6
+regS7        5 +bodyS7
+regS8        5 +bodyS8
+regS9        5 +bodyS9
+* Magnets
+regM1        5 +bodyM1 -bodyM2
+regM2        5 +bodyM3 -bodyM4
+regM3        5 +bodyM5 -bodyM6
+* Calorimeter
+regCal       5 +bodyCal
+END
+GEOEND
+* ..+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8
+MATERIAL         19.   39.0983     0.862       26.                 0.0POTASSIU
+MATERIAL         0.0       0.0      2.35       27.                 0.0CONCRETE
+COMPOUND       -0.01  HYDROGEN    -0.001    CARBON -0.529107    OXYGENCONCRETE
+COMPOUND      -0.016    SODIUM    -0.002  MAGNESIU -0.033872  ALUMINUMCONCRETE
+COMPOUND   -0.337021   SILICON    -0.013  POTASSIU    -0.044   CALCIUMCONCRETE
+COMPOUND      -0.014      IRON                                        CONCRETE
+MATERIAL         11.               2.650                              ROCK
+LOW-MAT         ROCK       14.       -2.      296.                    SILICON
+MATERIAL         27.               8.900                              COBALT
+MATERIAL         62.               7.520                              SAMARIUM
+MATERIAL                           8.500                              SMCO
+COMPOUND          2.  SAMARIUM       17.    COBALT                    SMCO
+* ..+....1....+....2....+....3....+....4....+....5....+....6....+....7..
+ASSIGNMA    BLCKHOLE     regBH
+* ..+....1....+....2....+....3....+....4....+....5....+....6....+....7..
+ASSIGNMA        ROCK     regRo
+ASSIGNMA    CONCRETE     regFl
+* Vacuum
+ASSIGNMA      VACUUM     regVA
+ASSIGNMA      VACUUM    regVA1
+ASSIGNMA      VACUUM    regVA2                            1.
+ASSIGNMA      VACUUM    regVA3                            1.
+ASSIGNMA      VACUUM    regVA4                            1.
+* Emulsion Chamber
+ASSIGNMA    TUNGSTEN     regEM
+* Aluminum Cage
+ASSIGNMA    ALUMINUM     regAl
+*  Aluminum Feet
+ASSIGNMA    ALUMINUM    regFFR
+ASSIGNMA    ALUMINUM    regFFL
+ASSIGNMA    ALUMINUM    regFBL
+ASSIGNMA    ALUMINUM    regFBR
+* Pb Shield
+ASSIGNMA        LEAD     regPb
+ASSIGNMA        LEAD    regPb1
+ASSIGNMA        LEAD    regPb2
+ASSIGNMA        LEAD    regPb3
+* Calorimeter
+ASSIGNMA        LEAD    regCal
+* Scintillators
+ASSIGNMA    PLASCINT     regS1
+ASSIGNMA    PLASCINT     regS2
+ASSIGNMA    PLASCINT     regS3
+ASSIGNMA    PLASCINT     regS4
+ASSIGNMA    PLASCINT     regS5
+ASSIGNMA    PLASCINT     regS6
+ASSIGNMA    PLASCINT     regS7
+ASSIGNMA    PLASCINT     regS8
+ASSIGNMA    PLASCINT     regS9
+* Magnets
+ASSIGNMA        SMCO     regM1
+ASSIGNMA        SMCO     regM2
+ASSIGNMA        SMCO     regM3
+* Tracking Stations
+*ASSIGNMA    PLASCINT    regTr1
+*ASSIGNMA    PLASCINT    regTr2
+*ASSIGNMA    PLASCINT    regTr3
+*ASSIGNMA    PLASCINT    regTr4
+*ASSIGNMA    PLASCINT    regTr5
+MGNFIELD                                                -0.6
+ROT-DEFI         0.0                 3.7     1.863     0.640          s34trans
+ROT-DEFI         0.0                -3.7    -1.834    0.4572          s56trans
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalaCoincid_1
+DETECT           0.0    -regS1                                         &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_2
+DETECT           0.0    -regS1    -regS9                               &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_3
+DETECT           0.0    -regS1    -regS8                               &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_4
+DETECT           0.0    -regS1    -regS5                               &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_5
+DETECT           0.0    -regS1    -regS5    -regS8    -regS9           &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_6
+DETECT           0.0    -regS1    -regS5    -regS8                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_7
+DETECT           0.0    -regS1    -regS5    -regS9                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_8
+DETECT           0.0    -regS1    -regS8    -regS9                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_9
+DETECT           0.0    -regS1    -regS3                               &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_10
+DETECT           0.0    -regS1    -regS3    -regS9                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_11
+DETECT           0.0    -regS1    -regS3    -regS8                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_12
+DETECT           0.0    -regS1    -regS3    -regS5                     &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_13
+DETECT           0.0    -regS1    -regS3    -regS5    -regS8    -regS9 &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_14
+DETECT           0.0    -regS1    -regS3    -regS5    -regS8           &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_15
+DETECT           0.0    -regS1    -regS3    -regS5    -regS9           &
+DETECT           0.0     1.E-4       50.     1.E-4       0.0    regCalCoincid_16
+DETECT           0.0    -regS1    -regS3    -regS8    -regS9           &
+DETECT           0.0     5.E-4        1.     1.E-9       0.0    regCalCoincid_17
+DETECT           0.0    -regS1    -regS3    -regS5    -regS7    -regS8 &
+DETECT           0.0    -regS9                                         &&
+DETECT           0.0        1.     4000.     1.E-9       0.0    regCalCoincid_18
+DETECT           0.0    -regS1    -regS3    -regS5    -regS7    -regS8 &
+DETECT           0.0    -regS9                                         &&
+EVENTBIN        -12.    ENERGY       24.     regS1                    s1EnBin
+EVENTBIN       regS1                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS1                    s1MuBin
+EVENTBIN       regS1                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS2                    s2EnBin
+EVENTBIN       regS2                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS2                    s2MuBin
+EVENTBIN       regS2                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS3                    s3EnBin
+EVENTBIN       regS3                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS3                    s3MuBin
+EVENTBIN       regS3                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS4                    s4EnBin
+EVENTBIN       regS4                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS4                    s4MuBin
+EVENTBIN       regS4                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS5                    s5EnBin
+EVENTBIN       regS5                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS5                    s5MuBin
+EVENTBIN       regS5                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS6                    s6EnBin
+EVENTBIN       regS6                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS6                    s6MuBin
+EVENTBIN       regS6                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS7                    s7EnBin
+EVENTBIN       regS7                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS7                    s7MuBin
+EVENTBIN       regS7                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS8                    s8EnBin
+EVENTBIN       regS8                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS8                    s8MuBin
+EVENTBIN       regS8                            1.                     &
+EVENTBIN        -12.    ENERGY       24.     regS9                    s9EnBin
+EVENTBIN       regS9                            1.                     &
+EVENTBIN        -12.     MUONS       25.     regS9                    s9MuBin
+EVENTBIN       regS9                            1.                     &
+EVENTBIN        -12.    ENERGY       24.    regCal                    s10EnBin
+EVENTBIN      regCal                            1.                     &
+EVENTBIN        -12.     MUONS       25.    regCal                    s10MuBin
+EVENTBIN      regCal                            1.                     &
+EVENTBIN        -10.  ALL-CHAR       30.      12.5      12.5     119.6tr1
+EVENTBIN       -12.5     -12.5     119.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       30.      12.5      12.5     124.6tr12
+EVENTBIN       -12.5     -12.5     124.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       30.      12.5      12.5     139.6tr13
+EVENTBIN       -12.5     -12.5     139.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       31.      12.5      12.5     307.6tr2
+EVENTBIN       -12.5     -12.5     307.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       31.      12.5      12.5     312.6tr22
+EVENTBIN       -12.5     -12.5     312.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       31.      12.5      12.5     317.6tr23
+EVENTBIN       -12.5     -12.5     317.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       32.      12.5      12.5     427.6tr3
+EVENTBIN       -12.5     -12.5     427.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       32.      12.5      12.5     432.6tr32
+EVENTBIN       -12.5     -12.5     4325.       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       32.      12.5      12.5     437.6tr33
+EVENTBIN       -12.5     -12.5     437.5       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       33.      12.5      12.5     547.1tr4
+EVENTBIN       -12.5     -12.5      547.       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       33.      12.5      12.5     552.1tr42
+EVENTBIN       -12.5     -12.5      552.       25.       25.        1. &
+EVENTBIN        -10.  ALL-CHAR       33.      12.5      12.5     557.1tr43
+EVENTBIN       -12.5     -12.5      557.       25.       25.        1. &
+* Set the random number seed
+RANDOMIZ          1.
+* Set the number of primary histories to be simulated in the run
+START         21527.
+STOP
