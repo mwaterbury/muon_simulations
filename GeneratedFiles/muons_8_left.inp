@@ -258,7 +258,7 @@ EVENTBIN       -12.5     -12.5      552.       25.       25.        1. &
 EVENTBIN        -10.  ALL-CHAR       33.      12.5      12.5     557.1tr43
 EVENTBIN       -12.5     -12.5      557.       25.       25.        1. &
 * Set the random number seed
-RANDOMIZ         1.0     525.0
+RANDOMIZ         1.0    3025.0
 * Set the number of primary histories to be simulated in the run
 START         21527.
 STOP

@@ -22,7 +22,7 @@ def genBeamInfoLine(energy,dx,dy,particle):
     newLine = BEAM + WHAT2 + WHAT34 + WHAT5 + WHAT6 + WHAT7 + WHAT8
     return newLine
 
-RNG = 500.0
+RNG = 3000.0
 
 inputFileDir = 'BaseInputFiles/'
 outputFileDir = 'GeneratedFiles/'
