@@ -154,7 +154,7 @@ def scrapeFLUKA(history, entries, threshold, basedir, simid=''):
         arraydir =  'ParsedData/'
 
         primEn, totSim, zposition = pullSimData(fileID)
-        if not(alreadyExists(arraydir, arraydir + fid + '.npy')):
+        if not(alreadyExists(arraydir, arraydir + simid + fid + '.npy')):
             print(fid)
             
             scLine, evNum = pushFileToEvent(scFile)
