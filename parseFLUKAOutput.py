@@ -140,7 +140,7 @@ def alreadyExists(basedir, fname):
     if value: print(fname + ' already exists!\n-----')
     return value
 
-def scrapeFLUKA(history, entries, threshold, basedir):
+def scrapeFLUKA(history, entries, threshold, basedir, simid=''):
     #Scrape files
     ls = listdir(basedir)
     fileIDs = [basedir + re.match(r'(.*)_fort.24',fname)[1]
@@ -204,7 +204,7 @@ def scrapeFLUKA(history, entries, threshold, basedir):
                 # Reset evNum to continue running reader
                 evNum = evNum_tmp
                 # print('----------------')
-            np.save(arraydir + fid + '.npy',data)
+            np.save(arraydir + simid + fid + '.npy',data)
 
 history = np.array([0, 0, 1, 1])
 entries = np.array([0, 1, 2, 3])
@@ -212,5 +212,5 @@ threshold = 10**-4
 
 basedir = 'GeneratedFiles/'
 
-scrapeFLUKA(history, entries, threshold, basedir)
+scrapeFLUKA(history, entries, threshold, basedir, simid='_f_')
 
